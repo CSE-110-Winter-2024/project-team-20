@@ -2,44 +2,23 @@ package edu.ucsd.cse110.successorator.lib.domain;
 
 import java.util.List;
 
-
 import edu.ucsd.cse110.successorator.lib.data.DataSource;
 import edu.ucsd.cse110.successorator.lib.util.SimpleSubject;
+import edu.ucsd.cse110.successorator.lib.util.Subject;
 
-public class GoalRepository implements SimpleGoalRepository {
-
-    // main backing database/datasource
-    private DataSource dataSource;
-
-    // base constructor
-    public GoalRepository(DataSource dataSource){
-        this.dataSource = dataSource;
-    }
-
+public interface GoalRepository {
     // DataSource getter used for testing
-    @Override
-    public DataSource getDataSource(){
-        return this.dataSource;
-    }
+    DataSource getDataSource();
+
     // Potentially useful for UI Implementation
-    @Override
-    public Integer count() {return dataSource.getGoals().size();}
+    Integer count();
 
     // getting a SimpleSubject to a goal based on its id
-    @Override
-    public SimpleSubject<Goal> find(int id){
-        return dataSource.getGoalEntrySubject(id);
-    }
+    Subject<Goal> find(int id);
 
     // get all Goals, Incomplete and Complete
-    @Override
-    public SimpleSubject<List<Goal>> findAll() {
-        return dataSource.getAllGoalEntrySubject();
-    }
+    Subject<List<Goal>> findAll();
 
     // add a goal to the list
-    @Override
-    public void save(Goal goal) {
-        dataSource.putGoalEntry(goal);
-    }
+    void save(Goal goal);
 }

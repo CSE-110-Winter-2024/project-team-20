@@ -2,7 +2,6 @@ package edu.ucsd.cse110.successorator;
 
 
 import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.viewmodel.ViewModelInitializer;
 import static androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY;
 
@@ -10,7 +9,7 @@ import java.util.List;
 
 
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
-import edu.ucsd.cse110.successorator.lib.domain.GoalRepository;
+import edu.ucsd.cse110.successorator.lib.domain.SimpleGoalRepository;
 import edu.ucsd.cse110.successorator.lib.util.MutableSubject;
 import edu.ucsd.cse110.successorator.lib.util.SimpleSubject;
 import edu.ucsd.cse110.successorator.lib.util.Subject;
@@ -25,19 +24,19 @@ public class MainViewModel extends ViewModel {
                         assert app != null;
                         return new MainViewModel(app.getGoalRepository());
                     });
-    private final GoalRepository goalRepository;
+    private final SimpleGoalRepository simpleGoalRepository;
     private MutableSubject<List<Goal>> goals;
     private MutableSubject<Boolean> isGoalsEmpty;
 
-    public MainViewModel(GoalRepository goalRepository) {
-        this.goalRepository = goalRepository;
+    public MainViewModel(SimpleGoalRepository simpleGoalRepository) {
+        this.simpleGoalRepository = simpleGoalRepository;
 //        isGoalsEmpty.setValue(true);
         this.goals = new SimpleSubject<>();
         this.isGoalsEmpty = new SimpleSubject<>();
 
         isGoalsEmpty.setValue(true);
 
-        this.goalRepository.findAll().observe(newGoals -> {
+        this.simpleGoalRepository.findAll().observe(newGoals -> {
             goals.setValue(newGoals);
         });
 
@@ -56,6 +55,6 @@ public class MainViewModel extends ViewModel {
     }
 
     public void addGoal(Goal goal) {
-        goalRepository.save(goal);
+        simpleGoalRepository.save(goal);
     }
 }

@@ -1,8 +1,6 @@
 package edu.ucsd.cse110.successorator;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import android.app.Activity;
+
 import android.os.Bundle;
 import android.view.View;
 
@@ -11,12 +9,11 @@ import java.util.Locale;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 
 import edu.ucsd.cse110.successorator.databinding.ActivityMainBinding;
 import edu.ucsd.cse110.successorator.databinding.FragmentMainBinding;
 import edu.ucsd.cse110.successorator.lib.data.DataSource;
-import edu.ucsd.cse110.successorator.lib.domain.GoalRepository;
+import edu.ucsd.cse110.successorator.lib.domain.SimpleGoalRepository;
 import edu.ucsd.cse110.successorator.ui.MainFragmentAdapter;
 
 public class MainActivity extends AppCompatActivity {
@@ -39,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         v.emptyGoals.setText(R.string.emptyGoalsText);
 
         var datasource = DataSource.fromDefault();
-        this.model = new MainViewModel(new GoalRepository(datasource));
+        this.model = new MainViewModel(new SimpleGoalRepository(datasource));
         this.view = ActivityMainBinding.inflate(getLayoutInflater());
 
 //        var modelOwner = this;
