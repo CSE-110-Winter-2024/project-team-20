@@ -56,4 +56,8 @@ public class SimpleSubject<T> implements MutableSubject<T> {
             observer.onChanged(value);
         }
     }
+    public List<Observer<T>> getObservers(){
+        return observers;
+    }
+
 }
